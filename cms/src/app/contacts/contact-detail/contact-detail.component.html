@@ -1,0 +1,30 @@
+    <div class="row">
+  <div class="col-xs-12">
+<div class="panel panel-default">
+<div class="panel-heading" style="padding: 10%;">
+ <h1>{{ contact.name }}</h1>
+    <img 
+      [src]="contact.imageUrl" 
+      alt="{{ contact.name }}" 
+      class="img-responsive"
+      style="max-height: 300px;"
+    >
+      <button
+        type="button"
+        class="btn btn-danger pull-right"
+        style="margin-right: -10%;"
+        >
+        Delete
+      </button>
+      <button
+        class="btn btn-primary pull-right"
+        style="margin-right: 1%;">
+        Edit
+      </button>
+</div>
+<h5 style="margin-left: 2%;">Email:</h5> {{ contact.email }}
+<h5 style="margin-left: 2%;">Phone:</h5> {{ contact.phone }}
+
+</div>
+
+</div>
