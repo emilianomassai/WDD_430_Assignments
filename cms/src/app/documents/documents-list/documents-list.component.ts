@@ -11,7 +11,8 @@ export class DocumentsListComponent {
   documents: Document[] = [
     //  id, name, description and url 
     new Document('1', 'The Lord of the Rings', 'A fantastic Journey', 'url', 'child'),
-    new Document('2', 'The Lord of the Rings', 'A fantastic Journey', 'url', 'child')
+    new Document('2', 'The Book of Mormon', 'Another Testament of Jesus Christ', 'url', 'child'),
+    new Document('3', 'The Bible', 'Old and New Testament', 'url', 'child'),
   ];
 
   onSelectedDocument(document: Document) {
