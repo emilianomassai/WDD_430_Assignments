@@ -1,41 +1,43 @@
 <div class="row">
   <div class="col-xs-12">
-<div class="panel panel-default">
-<div class="panel-heading" 
-     *ngFor="let contact of contacts">
-    <h3 class="headerfont Item1">{{contact.name}}</h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="headerfont Item1">{{ contact.name }}</h3>
 
-    <div class="row">
-        <div class="col-xs-12" *ngFor="let contact of contacts" style="display: inline-flex;" >
-            <div *ngFor="let contact of contacts">
-                <img class="img-responsive"
+        <div class="row">
+          <div class="col-xs-12" style="display: inline-flex">
+            <div>
+              <img
+                class="img-responsive"
                 [src]="contact.imageUrl"
-                alt="{{contact.name}}" >
+                alt="{{ contact.name }}"
+              />
             </div>
-          
+
             <div class="row">
-                <div class="col-xs-12">
-                     <button class="btn btn-danger pull-right"             
-                             style="margin-right: -10%;">Delete</button>
-                     <button class="btn btn-primary pull-right"
-                             style="margin-right: 5%;">Edit</button>
-                </div>
+              <div class="col-xs-12">
+                <button
+                  class="btn btn-danger pull-right"
+                  style="margin-right: -10%"
+                >
+                  Delete
+                </button>
+                <button
+                  class="btn btn-primary pull-right"
+                  style="margin-right: 5%"
+                >
+                  Edit
+                </button>
+              </div>
             </div>
-
+          </div>
         </div>
+      </div>
     </div>
 
-
+    <div class="list-group-item clearfix">
+      <p><b>Email:</b> {{ contact.email }}</p>
+      <p><b>Phone:</b> {{ contact.phone }}</p>
     </div>
-
+  </div>
 </div>
-
-<div class="list-group-item clearfix" *ngFor="let contact of contacts">
-    <p><b>Email:</b> {{contact.email}}</p> 
-    <p><b>Phone:</b> {{contact.phone}}</p>
-
-</div>
-
-
-
-
