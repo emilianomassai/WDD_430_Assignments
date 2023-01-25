@@ -16,7 +16,7 @@ import { MessagesEditComponent } from './messages/messages-list/messages-edit/me
 import { MessagesListComponent } from './messages/messages-list/messages-list.component';
 import { DocumentsDetailComponent } from './documents/documents-detail/documents-detail.component';
 import { DocumentsListComponent } from './documents/documents-list/documents-list.component';
-import { DocumentsItemComponent } from './documents/documents-item/documents-item.component';
+import { DocumentsItemComponent } from './documents/documents-list/documents-item/documents-item.component';
 
 @NgModule({
   declarations: [
