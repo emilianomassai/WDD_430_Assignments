@@ -13,8 +13,8 @@ export class ContactService {
 
   getContacts(): Contact[] { return this.contacts.slice(); }
 
-  // TO FIX THIS 
-  // getContact(id: string): Contact {
+  // // TO FIX THIS 
+
 
   //   // FOR each contact in the contacts list
   //   //  IF contact.id equals the id THEN
@@ -23,11 +23,12 @@ export class ContactService {
   //   //   ENDFOR
   //   //  RETURN null
 
+  // getContact(id: string): Contact {
   //   this.contacts.forEach(contact => {
   //     if (contact.id = id) {
   //       return contact;
-  //     } else return null;
-  //   });
+  //     } return null;
+  //   }); 
 
 
   // }

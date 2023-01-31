@@ -28,7 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ---
 
-TO FIX MESSAGES NOT DISPLAYING ANYMORE!!!!
-TO FINISH THE ASSIGNMENT
+TO CONTINUE
+Implement the Document Service
 
 ---
