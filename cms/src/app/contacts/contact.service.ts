@@ -23,15 +23,13 @@ export class ContactService {
   //   //   ENDFOR
   //   //  RETURN null
 
-  // getContact(id: string): Contact {
-  //   this.contacts.forEach(contact => {
-  //     if (contact.id = id) {
-  //       return contact;
-  //     } return null;
-  //   }); 
-
-
-  // }
-
+  getContact(id: string): Contact {
+    for (let contact of this.contacts) {
+      if (contact.id == id) {
+        return contact;
+      }
+    }
+    return null!;
+  }
 
 }

@@ -29,6 +29,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ---
 
 TO CONTINUE
-Implement the Document Service
+Implement the MessageService
 
 ---
