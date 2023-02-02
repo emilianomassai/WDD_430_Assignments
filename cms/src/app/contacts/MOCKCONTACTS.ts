@@ -119,6 +119,14 @@ export const MOCKCONTACTS: Contact[] = [
     imageUrl: '../../assets/images/thompsonda.jpg',
     group: []
   },
+  {
+    id: '84',
+    name: 'Emiliano Massai',
+    email: 'emilianomassai@byui.edu',
+    phone: '000-000-0000',
+    imageUrl: '',
+    group: []
+  },
 
   // teams
   // index 13

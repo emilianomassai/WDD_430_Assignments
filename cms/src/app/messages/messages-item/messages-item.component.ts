@@ -6,26 +6,27 @@ import { Contact } from 'src/app/contacts/contacts.model';
 @Component({
   selector: 'app-messages-item',
   templateUrl: './messages-item.component.html',
-  styleUrls: ['./messages-item.component.css']
+  styleUrls: ['./messages-item.component.css'],
+  providers: [ContactService]
 })
-
-// export class MessagesItemComponent implements OnInit {
-//   @Input() message!: Messages;
-//   messageSender!: string;
-//   constructor(private contactService: ContactService) { }
-//   ngOnInit() {
-//     const contact: Contact = this.contactService.getContact(this.message.sender);
-//     this.messageSender = contact.name;
-//   }
-// }
 
 export class MessagesItemComponent implements OnInit {
   @Input() message!: Messages;
-
-  constructor() { }
-
-
+  messageSender!: string;
+  constructor(private contactService: ContactService) { }
   ngOnInit() {
+    const contact: Contact = this.contactService.getContact(this.message.sender);
+    this.messageSender = contact.name;
   }
-
 }
+
+// export class MessagesItemComponent implements OnInit {
+//   @Input() message!: Messages;
+
+//   constructor() { }
+
+
+//   ngOnInit() {
+//   }
+
+// }

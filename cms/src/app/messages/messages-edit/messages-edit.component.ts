@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import { Messages } from '../messages.model';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-messages-edit',
@@ -8,7 +9,9 @@ import { Messages } from '../messages.model';
   styleUrls: ['./messages-edit.component.css']
 })
 export class MessagesEditComponent implements OnInit {
-  currentSender: string = "Emiliano";
+
+  // I added my name in the mockcontacts.ts so I can use the id required from the new message system to display my name when sending a new message
+  currentSender: string = '84';
 
 
   @ViewChild('idInput') idInputRef!: ElementRef;
@@ -17,7 +20,7 @@ export class MessagesEditComponent implements OnInit {
   @ViewChild('senderInput') senderInputRef!: ElementRef;
   @Output() addMessageEvent = new EventEmitter<Messages>();
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
   }
@@ -31,7 +34,10 @@ export class MessagesEditComponent implements OnInit {
     const newMessage = new Messages('1', ingSubject, ingMessage,
       this.currentSender);
 
-    this.addMessageEvent.emit(newMessage);
+    // this.addMessageEvent.emit(newMessage);
+
+    this.messageService.addMessage(newMessage);
+
   }
 
   onClear() {

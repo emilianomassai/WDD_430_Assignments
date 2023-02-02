@@ -18,9 +18,11 @@ export class MessagesListComponent {
 
   ngOnInit() {
     this.messages = this.messageService.getMessages();
-  }
-
-  onMessageAdded(message: Messages) {
-    this.messages.push(message);
+    this.messageService.messageChanged
+      .subscribe((
+        message: Messages[]) => {
+        this.messages = message;
+      }
+      );
   }
 }
