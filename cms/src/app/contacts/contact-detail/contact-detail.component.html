@@ -16,18 +16,20 @@
 
             <div class="row">
               <div class="col-xs-12">
-                <button
+                <a
                   class="btn btn-danger pull-right"
                   style="margin-right: -10%"
+                  (click)="onDelete()"
                 >
                   Delete
-                </button>
-                <button
+                </a>
+                <a
+                  [routerLink]="['/contacts', contact.id, 'edit']"
                   class="btn btn-primary pull-right"
                   style="margin-right: 5%"
                 >
                   Edit
-                </button>
+                </a>
               </div>
             </div>
           </div>

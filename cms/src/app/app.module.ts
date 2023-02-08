@@ -18,6 +18,8 @@ import { DocumentsDetailComponent } from './documents/documents-detail/documents
 import { DocumentsListComponent } from './documents/documents-list/documents-list.component';
 import { DocumentsItemComponent } from './documents/documents-list/documents-item/documents-item.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
+import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { DropdownDirective } from './shared/dropdown.directive';
     DocumentsDetailComponent,
     DocumentsListComponent,
     DocumentsItemComponent,
-    DropdownDirective
+    DropdownDirective,
+    DocumentEditComponent,
+    ContactEditComponent
   ],
   imports: [
     BrowserModule,

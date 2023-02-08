@@ -1,6 +1,11 @@
-<a href="#" class="list-group-item clearfix documentDiv" (click)="onSelected()">
+<a
+  [routerLink]="[document.id]"
+  routerLinkActive="active"
+  class="list-group-item clearfix documentDiv"
+  (click)="onSelected()"
+>
   <div class="pull-left">
-    <h4 class="list-group-item-heading">{{ document.name }}</h4>
+    <p class="list-group-item-heading">{{ document.name }}</p>
   </div>
   <span class="pull-right"> </span>
 </a>

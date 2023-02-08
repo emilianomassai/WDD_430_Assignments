@@ -5,6 +5,7 @@ import { Contact } from './contacts.model';
 @Injectable()
 export class ContactService {
   contactSelectedEvent = new EventEmitter<Contact>();
+  contactChangedEvent = new EventEmitter<Contact[]>();
 
   private contacts: Contact[] = [];
   constructor() {
@@ -12,16 +13,6 @@ export class ContactService {
   }
 
   getContacts(): Contact[] { return this.contacts.slice(); }
-
-  // // TO FIX THIS 
-
-
-  //   // FOR each contact in the contacts list
-  //   //  IF contact.id equals the id THEN
-  //   //  RETURN contact 
-  //   //   ENDIF
-  //   //   ENDFOR
-  //   //  RETURN null
 
   getContact(id: string): Contact {
     for (const contact of this.contacts) {
@@ -31,5 +22,20 @@ export class ContactService {
     }
     return null!;
   }
+
+  deleteContact(contact: Contact) {
+
+    if (!contact) {
+      return;
+    }
+    const pos = this.contacts.indexOf(contact);
+    if (pos < 0) {
+      return;
+    }
+    this.contacts.splice(pos, 1);
+    this.contactChangedEvent.emit(this.contacts.slice());
+  }
+
+
 
 }
