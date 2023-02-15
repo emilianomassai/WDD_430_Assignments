@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Document } from '../documents.model';
 import { DocumentService } from '../document.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-documents-list',
   templateUrl: './documents-list.component.html',
   styleUrls: ['./documents-list.component.css']
 })
-export class DocumentsListComponent implements OnInit {
+export class DocumentsListComponent implements OnInit, OnDestroy {
   // @Output() selectedDocumentEvent = new EventEmitter<Document>();
   documents: Document[] = [
     //  id, name, description and url 
@@ -16,18 +17,38 @@ export class DocumentsListComponent implements OnInit {
     // new Document('3', 'The Bible', 'Old and New Testament', 'url', 'child'),
   ];
 
+  private subscription!: Subscription;
+
   constructor(private documentService: DocumentService) { }
 
   ngOnInit() {
     this.documents = this.documentService.getDocuments();
 
-    this.documentService.documentChangedEvent.subscribe(
-      (document: Document[]) => {
-        this.documents = document;
+    // this.documentService.documentChangedEvent.subscribe(
+    //   (document: Document[]) => {
+    //     this.documents = document;
+    //   }
+    // );
+
+    this.subscription = this.documentService.documentListChangedEvent.subscribe(
+      (documentsList: Document[]) => {
+        this.documents = documentsList;
       }
     );
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  // TO CHANGE THIS WITH REAL DATA
+  // this function is add a new document using hard coded details
+  onAdd() {
+
+    // fake add document 
+    let testDocument = new Document(this.documentService.getMaxId().toString(), 'The Book of Mormon', 'Another Testament of Jesus Christ', 'https://www.churchofjesuschrist.org/study/scriptures/bofm?lang=eng', 'child')
+    this.documentService.addDocument(testDocument);
+  }
 
 
 }

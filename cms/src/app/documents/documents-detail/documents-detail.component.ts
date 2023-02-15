@@ -41,4 +41,17 @@ export class DocumentsDetailComponent implements OnInit {
     //route back to the '/documents' URL
     this.router.navigate(['/documents'], { relativeTo: this.route });
   }
+
+
+  // TO CHANGE THIS WITH REAL DATA
+  // this function is updating the existing document with hard coded data 
+  onEdit() {
+
+    // fake updated contact 
+    let testDocument = new Document('2', 'The Book of Mormon', 'Another Testament of Jesus Christ', 'https://www.churchofjesuschrist.org/study/scriptures/bofm?lang=eng', 'child')
+
+    this.documentService.updateDocument(this.document, testDocument);
+    this.router.navigate(['/documents'], { relativeTo: this.route });
+
+  }
 }

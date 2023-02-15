@@ -31,4 +31,18 @@ export class ContactDetailComponent implements OnInit {
     this.contactService.deleteContact(this.contact);
     this.router.navigate(['/contacts'], { relativeTo: this.route });
   }
+
+
+  // TO CHANGE THIS WITH REAL DATA
+  // this function is updating the existing contact with hard coded contact details
+  onEdit() {
+
+    // fake updated contact 
+    let testContact = new Contact('1', 'Fred Flintstone', 'fredflintstone@byui.edu', '208-496-3771', '../../assets/images/fredFlintstone.png', [])
+
+    this.contactService.updateContact(this.contact, testContact);
+    this.router.navigate(['/contacts'], { relativeTo: this.route });
+
+  }
+
 }
