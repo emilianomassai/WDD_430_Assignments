@@ -14,6 +14,8 @@ export class ContactService {
   private contacts: Contact[] = [];
   constructor() {
     this.contacts = MOCKCONTACTS;
+    this.maxContactId = this.getMaxId();
+
   }
 
   getContacts(): Contact[] { return this.contacts.slice(); }
@@ -37,10 +39,28 @@ export class ContactService {
       if (currentId > maxId) {
         maxId = currentId
       }
-      console.log('getMaxId is working on Contacts')
+      console.log('getMaxId from getMaxId Contacts: ' + maxId)
     }
     return maxId
   }
+
+  // Created by me. This method is used to check the last id number of the contact with the biggest id. Then adds one to the number to it to create the new id. This makes sure to avoid a duplicate id for a new contact.
+  countContactId(): number {
+
+    let nextId = 0
+    let currentId = 0;
+
+    for (const contact of this.contacts) {
+      currentId = parseInt(contact.id);
+      if (currentId > nextId) {
+        nextId = currentId
+      }
+    }
+    nextId++;
+
+    return nextId
+  }
+
 
   deleteContact(contact: Contact) {
 
@@ -60,8 +80,13 @@ export class ContactService {
     if (!newContact || newContact == null) {
       return;
     }
+    // this.maxContactId++;
+    // console.log('maxContactId: ' + this.maxContactId);
     this.maxContactId++;
-    let newContactIdString = this.maxContactId;
+    let newContactIdString = this.countContactId();
+    console.log('newContactIdString: ' + newContactIdString);
+    console.log('getMaxId from addContact: ' + this.getMaxId());
+
     newContact.id = newContactIdString.toString();
     this.contacts.push(newContact);
     let contactsListClone = this.contacts.slice();

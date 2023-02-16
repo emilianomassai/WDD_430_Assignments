@@ -41,6 +41,8 @@ export class ContactListComponent implements OnInit, OnDestroy {
   // this function is add a new contact using hard coded details
   onAdd() {
     // fake add contact 
+
+    console.log("getMaxId() " + this.contactService.getMaxId().toString())
     let testContact = new Contact(this.contactService.getMaxId().toString(), 'Fred Flintstone', 'fredflintstone@byui.edu', '208-496-3771', '../../assets/images/fredFlintstone.png', [])
     this.contactService.addContact(testContact);
   }
