@@ -10,6 +10,7 @@ import { WindRefService } from 'src/app/wind-ref.service';
   styleUrls: ['./documents-detail.component.css']
 })
 export class DocumentsDetailComponent implements OnInit {
+
   document!: Document;
   id!: string;
   nativeWindow: any;
@@ -46,12 +47,12 @@ export class DocumentsDetailComponent implements OnInit {
   // TO CHANGE THIS WITH REAL DATA
   // this function is updating the existing document with hard coded data 
   onEdit() {
-
     // fake updated contact 
-    let testDocument = new Document('2', 'The Book of Mormon', 'Another Testament of Jesus Christ', 'https://www.churchofjesuschrist.org/study/scriptures/bofm?lang=eng', 'child')
+    // let testDocument = new Document('2', 'The Book of Mormon', 'Another Testament of Jesus Christ', 'https://www.churchofjesuschrist.org/study/scriptures/bofm?lang=eng', 'child')
 
-    this.documentService.updateDocument(this.document, testDocument);
-    this.router.navigate(['/documents'], { relativeTo: this.route });
+    // this.documentService.updateDocument(this.document, testDocument);
+    // this.router.navigate(['/documents'], { relativeTo: this.route });
+
 
   }
 }

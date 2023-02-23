@@ -9,6 +9,8 @@ import { Subject } from 'rxjs';
 })
 export class DocumentService {
   private maxDocumentId!: number;
+  startedEditing = new Subject<number>();
+
 
   documentListChangedEvent = new Subject<Document[]>();
   documentSelectedEvent = new EventEmitter<Document>();

@@ -37,18 +37,21 @@ export class DocumentsListComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+
 
   // TO CHANGE THIS WITH REAL DATA
   // this function is add a new document using hard coded details
   onAdd() {
 
     // fake add document 
-    let testDocument = new Document(this.documentService.getMaxId().toString(), 'The Book of Mormon', 'Another Testament of Jesus Christ', 'https://www.churchofjesuschrist.org/study/scriptures/bofm?lang=eng', 'child')
-    this.documentService.addDocument(testDocument);
+    // let testDocument = new Document(this.documentService.getMaxId().toString(), 'The Book of Mormon', 'Another Testament of Jesus Christ', 'https://www.churchofjesuschrist.org/study/scriptures/bofm?lang=eng', 'child')
+    // this.documentService.addDocument(testDocument);
+
   }
 
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }
