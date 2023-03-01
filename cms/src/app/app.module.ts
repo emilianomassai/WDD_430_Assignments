@@ -10,10 +10,9 @@ import { ContactListComponent } from './contacts/contact-list/contact-list.compo
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 import { ContactItemComponent } from './contacts/contact-list/contact-item/contact-item.component';
 import { DocumentsComponent } from './documents/documents.component';
-import { MessagesComponent } from './messages/messages.component';
-import { MessagesItemComponent } from './messages/messages-item/messages-item.component';
-import { MessagesEditComponent } from './messages/messages-edit/messages-edit.component';
-import { MessagesListComponent } from './messages/messages-list/messages-list.component';
+import { MessageItemComponent } from './messages/message-item/message-item.component';
+import { MessageEditComponent } from './messages/message-edit/message-edit.component';
+import { MessageListComponent } from './messages/message-list/message-list.component';
 import { DocumentsDetailComponent } from './documents/documents-detail/documents-detail.component';
 import { DocumentsListComponent } from './documents/documents-list/documents-list.component';
 import { DocumentsItemComponent } from './documents/documents-list/documents-item/documents-item.component';
@@ -33,10 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
     ContactDetailComponent,
     ContactItemComponent,
     DocumentsComponent,
-    MessagesComponent,
-    MessagesItemComponent,
-    MessagesEditComponent,
-    MessagesListComponent,
+    MessageItemComponent,
+    MessageEditComponent,
+    MessageListComponent,
     DocumentsDetailComponent,
     DocumentsListComponent,
     DocumentsItemComponent,

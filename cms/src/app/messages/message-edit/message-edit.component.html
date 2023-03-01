@@ -10,7 +10,7 @@
             class="form-control"
             size="120"
             max="120"
-            #subjectInput
+            #subject
           />
         </div>
 
@@ -20,17 +20,18 @@
             type="text"
             id="message"
             class="form-control"
-            max="255"
             size="120"
-            #messageInput
+            max="255"
+            #msgText
           />
         </div>
       </div>
+
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 btn-toolbar">
           <button
             class="btn btn-success"
-            type="submit"
+            type="button"
             (click)="onSendMessage()"
           >
             Send

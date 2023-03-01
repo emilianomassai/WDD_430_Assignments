@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-md-5">
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="row pad-left-right">
@@ -9,15 +9,17 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-xs-12">
-            <app-messages-item
-              *ngFor="let messageEL of messages"
-              [message]="messageEL"
-            ></app-messages-item>
+            <app-message-item
+              *ngFor="let messageEl of messages"
+              [message]="messageEl"
+            ></app-message-item>
           </div>
         </div>
       </div>
       <div class="panel-footer">
-        <app-messages-edit></app-messages-edit>
+        <app-message-edit
+          (addMessageEvent)="onAddMessage($event)"
+        ></app-message-edit>
       </div>
     </div>
   </div>
