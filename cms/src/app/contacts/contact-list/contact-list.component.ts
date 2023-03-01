@@ -10,27 +10,42 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit, OnDestroy {
-  contacts: Contact[] = [];
-  term!: string;
+
+  term: String = '';
+
+
+  contacts: Contact[] = []
+
+
   private subscription!: Subscription;
-  constructor(private contactService: ContactService) { }
 
-  ngOnInit() {
-    this.contacts = this.contactService.getContacts();
 
-    this.subscription = this.contactService.contactChangedEvent.subscribe(
-      (contacts: Contact[]) => {
+  constructor(private contactService: ContactService) {
+
+  }
+
+  ngOnInit(): void {
+
+    this.subscription = this.contactService.contactListChangedEvent
+      .subscribe((contacts: Contact[]) => {
         this.contacts = contacts;
       });
+
+
+    this.contactService.getContacts();
   }
-  ngOnDestroy(): void {
+
+
+
+
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  search(value: string) {
+
+  search(value: String) {
 
     this.term = value;
-
   }
 
 }

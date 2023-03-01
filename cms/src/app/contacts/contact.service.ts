@@ -1,49 +1,96 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { MOCKCONTACTS } from './MOCKCONTACTS';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Contact } from './contacts.model';
 import { Subject } from 'rxjs';
-@Injectable()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class ContactService {
+  // //variable for event emiter
   contactChangedEvent = new EventEmitter<Contact[]>();
 
+  //subject property
   contactListChangedEvent = new Subject<Contact[]>();
 
+  //property to hold max id
   maxContactId: number;
 
-  contacts: Contact[];
+  contacts: Contact[] = [];
 
-  constructor() {
-    this.contacts = MOCKCONTACTS;
+  //inject http client
+  constructor(private http: HttpClient) {
+    //init contact to be the ones coming from mockcontaccts
+    // this.contacts = MOCKCONTACTS;
+    this.getContacts();
+    //get the max id at init time
     this.maxContactId = this.getMaxId();
   }
 
-  getContacts(): Contact[] {
-    return this.contacts.slice();
+  //method to get all contaccts
+  getContacts() {
+
+    // I need to use this without the error check to avoid my subscription to get deprecated.
+    this.http.get<Contact[]>('https://cms-wdd430-58d60-default-rtdb.firebaseio.com/contacts.json')
+      .subscribe((contacts: Contact[]) => {
+        this.contacts = contacts;
+        this.maxContactId = this.getMaxId();
+        this.contacts.sort((a, b) => (a.name < b.name) ? 1 : (a.name > b.name) ? -1 : 0);
+        this.contactListChangedEvent.next(this.contacts.slice());
+
+        (error: any) => {
+          console.log(error);
+        }
+      })
   }
 
+  // getContacts(): Contact[] { return this.contacts.slice(); }
+
+
+  //method to get a single specific contact
   getContact(id: string): Contact {
+    // //loop through all the contacts
+    // this.contacts.forEach(contact => {
+    //   //if ids match
+    //   if (contact.id === id) {
+    //     return contact;
+    //   }
+    // })
+    // //if no id is found...
+    // return null;
+
     for (const contact of this.contacts) {
-      if (contact.id == id) {
+      if (contact.id === id) {
         return contact;
       }
     }
     return null!;
   }
 
-
+  //method to get max id number in contact list
   getMaxId(): number {
+    //variable to hold max Id
     let maxId = 0;
+    //loop through the contact list
     for (const contact of this.contacts) {
+      //get current id as a number
       const currentId = +contact.id;
+      //if the current id is greater than max ID...
       if (currentId > maxId) {
+        //then max id is the current id
         maxId = currentId;
       }
     }
+    //return that max id
     return maxId;
   }
 
+  //method to add a contact when user press add button
   addContact(newContact: Contact) {
+    //if null or undef...
     if (newContact === null || newContact === undefined) {
+      //exit function
       return;
     }
 
@@ -53,9 +100,8 @@ export class ContactService {
     newContact.id = this.maxContactId.toString();
     //push unto list
     this.contacts.push(newContact);
-    //create copy of list and emit/signal a change passing the copy
-    const contactListClone = this.contacts.slice();
-    this.contactListChangedEvent.next(contactListClone);
+    //store/modify contacts on firebase database
+    this.storeContacts();
   }
 
   //method to update/replace an existing contact
@@ -78,10 +124,8 @@ export class ContactService {
     newContact.id = originalContact.id;
     //set the contact in the list to be the new contact
     this.contacts[pos] = newContact;
-    //create copy
-    const contactListClone = this.contacts.slice();
-    //emit/signal a change passing the copy
-    this.contactListChangedEvent.next(contactListClone);
+    //store/modify contacts on firebase database
+    this.storeContacts();
   }
 
   //method to delete a contact
@@ -93,13 +137,34 @@ export class ContactService {
     //get position of document on list
     const pos = this.contacts.indexOf(contact);
 
-    //if there is no document (index less than 0), exit. 
+    //if there is no document (index less than 0), exit.
     if (pos < 0) {
       return;
     }
     //removed document at specified position
     this.contacts.splice(pos, 1);
-    //emit event to signal that a change has been made, and pass it a new copy of the document list
-    this.contactListChangedEvent.next(this.contacts.slice());
+    //store/modify contacts on firebase database
+    this.storeContacts();
+  }
+
+  //method to store contacts in database with put request
+  storeContacts() {
+    //stringify the list of documnts
+    let contacts = JSON.stringify(this.contacts);
+
+    //create header for content type
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    //put method with url, contacts object to replace, and headers
+    this.http.put('https://cms-wdd430-58d60-default-rtdb.firebaseio.com/contacts.json', contacts, { headers: headers })
+      //subscribe to response
+      .subscribe(
+        () => {
+          //once a response has been received, signal that the document list has changed, send copy of list
+          this.contactListChangedEvent.next(this.contacts.slice());
+        }
+      )
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Document } from '../documents.model';
 import { DocumentService } from '../document.service';
 import { Subscription } from 'rxjs';
@@ -9,34 +9,28 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./documents-list.component.css']
 })
 export class DocumentsListComponent implements OnInit, OnDestroy {
-  // @Output() selectedDocumentEvent = new EventEmitter<Document>();
-  documents: Document[] = [
-    //  id, name, description and url 
-    // new Document('1', 'The Lord of the Rings', 'A fantastic Journey', 'url', 'child'),
-    // new Document('2', 'The Book of Mormon', 'Another Testament of Jesus Christ', 'url', 'child'),
-    // new Document('3', 'The Bible', 'Old and New Testament', 'url', 'child'),
-  ];
+  @Output() selectedDocumentEvent = new EventEmitter<Document>();
+
+
+  documents: Document[] = [];
 
   private subscription!: Subscription;
 
   constructor(private documentService: DocumentService) { }
 
-  ngOnInit() {
-    this.documents = this.documentService.getDocuments();
-
-    // this.documentService.documentChangedEvent.subscribe(
-    //   (document: Document[]) => {
-    //     this.documents = document;
-    //   }
-    // );
+  ngOnInit(): void {
+    // TO DELETE THE FOLLOWING LINE WHEN READY TO USE FIREBASE
+    // this.documents = this.documentService.getDocuments();
 
     this.subscription = this.documentService.documentListChangedEvent.subscribe(
-      (documentsList: Document[]) => {
-        this.documents = documentsList;
+      (documents: Document[]) => {
+        this.documents = documents;
       }
-    );
-  }
+    )
 
+    // USE THE FOLLOWING TO GET DOCUMENTS FROM FIREBASE
+    this.documentService.getDocuments();
+  }
 
 
   // TO CHANGE THIS WITH REAL DATA

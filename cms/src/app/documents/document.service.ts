@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Document } from './documents.model';
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 import { Subject } from 'rxjs';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +17,32 @@ export class DocumentService {
   // documentChangedEvent = new EventEmitter<Document[]>();
 
   private documents: Document[] = [];
-  constructor() {
-    this.documents = MOCKDOCUMENTS
+
+  constructor(private http: HttpClient) {
+
+    // this.documents = MOCKDOCUMENTS
     this.maxDocumentId = this.getMaxId();
 
   }
 
 
-  getDocuments(): Document[] { return this.documents.slice(); }
+  getDocuments() {
+
+    // I need to use this without the error check to avoid my subscription to get deprecated.
+    this.http.get<Document[]>('https://cms-wdd430-58d60-default-rtdb.firebaseio.com/documents.json')
+      .subscribe((documents: Document[]) => {
+        this.documents = documents;
+        this.maxDocumentId = this.getMaxId();
+        this.documents.sort((a, b) => (a.name < b.name) ? 1 : (a.name > b.name) ? -1 : 0);
+        this.documentListChangedEvent.next(this.documents.slice());
+
+        (error: any) => {
+          console.log(error);
+        }
+      })
+  }
+
+  // getDocuments(): Document[] { return this.documents.slice(); }
 
 
   getDocument(id: string): Document {
@@ -52,8 +70,7 @@ export class DocumentService {
   }
 
   deleteDocument(document: Document) {
-
-    if (!document) {
+    if (document === null || document === undefined) {
       return;
     }
     const pos = this.documents.indexOf(document);
@@ -61,39 +78,52 @@ export class DocumentService {
       return;
     }
     this.documents.splice(pos, 1);
-    this.documentListChangedEvent.next(this.documents.slice());
-    console.log('deleteDocument is working');
+    this.storeDocuments();
   }
 
   addDocument(newDocument: Document) {
-    if (!newDocument || newDocument == null) {
+
+    if (newDocument === null || newDocument === undefined) {
+
       return;
     }
+
     this.maxDocumentId++;
-    let newDocIdString = this.maxDocumentId;
-    newDocument.id = newDocIdString.toString();
+    newDocument.id = this.maxDocumentId.toString();
     this.documents.push(newDocument);
-    let documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone.slice());
-    console.log('addDocument is working');
+    this.storeDocuments();
   }
+
 
   updateDocument(originalDocument: Document, newDocument: Document) {
 
-    if (!originalDocument || !newDocument || originalDocument == null || newDocument == null) {
+    if (originalDocument === null || originalDocument === undefined || newDocument === null || newDocument === undefined) {
       return;
     }
 
-    let pos = this.documents.indexOf(originalDocument)
+    const pos = this.documents.indexOf(originalDocument)
     if (pos < 0) {
       return
     }
     newDocument.id = originalDocument.id
     this.documents[pos] = newDocument
-    let documentsListClone = this.documents.slice()
-    this.documentListChangedEvent.next(documentsListClone.slice())
-    console.log('updateDocument is working');
+    this.storeDocuments();
+
   }
 
+  storeDocuments() {
+    let documents = JSON.stringify(this.documents);
 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    this.http.put('https://cms-wdd430-58d60-default-rtdb.firebaseio.com/documents.json', documents, { headers: headers })
+      .subscribe(
+        () => {
+
+          this.documentListChangedEvent.next(this.documents.slice());
+        }
+      )
+  }
 }

@@ -26,13 +26,17 @@
         <div class="row">
           <div class="col-xs-12">
             <app-contact-item
-              *ngFor="let contact of contacts | contactsFilter : term"
-              [contact]="contact"
+              *ngFor="
+                let contactEl of contacts | contactsFilter : searchBox.value;
+                let i = index
+              "
+              [contact]="contactEl"
               dnd-draggable
               [dragEnabled]="true"
-              [dragData]="contact"
+              [dragData]="contactEl"
               [dropZones]="['contactGroup']"
-            ></app-contact-item>
+            >
+            </app-contact-item>
           </div>
         </div>
       </div>

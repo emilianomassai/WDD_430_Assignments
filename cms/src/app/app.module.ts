@@ -22,6 +22,7 @@ import { DocumentEditComponent } from './documents/document-edit/document-edit.c
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 import { DndModule } from 'ng2-dnd';
 import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
