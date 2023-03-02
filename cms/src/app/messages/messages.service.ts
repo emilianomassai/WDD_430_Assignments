@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Message } from './message.model';
+import { ContactService } from 'src/app/contacts/contact.service';
 import { MOCKMESSAGES } from './MOCKMESSAGES';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -14,7 +15,10 @@ export class MessagesService {
 
   maxMessageId!: number;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private contactService: ContactService) {
+    this.contactService.getContacts();
+
+
     this.getMessages();
 
   }
